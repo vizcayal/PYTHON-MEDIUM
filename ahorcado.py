@@ -13,17 +13,32 @@ def file_list(file_name):
 
 
 def run():
+    os.system("cls")
+
     i = 0
     Letras = []
     word_list = file_list('data.txt')
     random_number = random.randint(0, len(word_list) - 1)
     word = word_list[random_number]
-    while i < TRIES+10:
+    gano = False
+    while (i < TRIES) and (not gano):
         Letra = input("Ingrese una Letra: ")
-        Letras.append(Letra)
-        i=i+1
+        if not(Letra in Letras):
+            Letras.append(Letra)
+        if not(Letra in word):
+            i+=1
+        
         os.system("cls")
-        print([l for l in word if l in Letras])
+
+        a = list(filter(lambda l:l in Letras,word))
+        print(a)
+        
+        print("te quedan {} intentos".format(TRIES - i))
+        if len(a) == len(word):
+            gano = True
+            print("Ganaste...")
+
+        print("\n")
         
         
     print('La palabra es: ', word)
